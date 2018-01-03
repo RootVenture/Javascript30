@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Scoped CSS Variables and JS</title>
 </head>
+
 <body>
-  <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+  <h2>Update CSS Variables with
+    <span class='hl'>JS</span>
+  </h2>
 
   <div class="controls">
     <label for="spacing">Spacing:</label>
@@ -21,11 +25,15 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
-    :root {
+    /* declare css variables on root */
+
+    root {
       --base: #ffc600;
       --spacing: 10px;
       --blur: 10px;
     }
+
+    /* apply the variables */
 
     img {
       padding: var(--spacing);
@@ -36,6 +44,7 @@
     .hl {
       color: var(--base);
     }
+
 
     /*
       misc styles, nothing to do with CSS variables
@@ -55,22 +64,25 @@
     }
 
     input {
-      width:100px;
+      width: 100px;
     }
   </style>
 
   <script>
-    const inputs = document.querySelectorAll('.controls input');
+    const inputs = document.querySelectorAll('.controls input')
 
     function handleUpdate() {
+      // dataset is an object that contains all data-attributes on an element
       const suffix = this.dataset.sizing || '';
-      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+      console.log(document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix));
+
+      document.documentElement.style.setProperty(`${this.name}`, this.value + suffix)
     }
 
-    inputs.forEach(input => input.addEventListener('change', handleUpdate));
-    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+    inputs.forEach(input => input.addEventListener('change', handleUpdate))
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate))
   </script>
 
-
 </body>
+
 </html>
