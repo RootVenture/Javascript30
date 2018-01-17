@@ -40,6 +40,8 @@
       <input type="text" name="item" placeholder="Item Name" required>
       <input type="submit" value="+ Add Item">
     </form>
+    <input id="toggle" type="submit" value="Toggle All">
+    <!-- <input id="check" type="submit" value="Check All"> -->
   </div>
 
   <script>
@@ -47,6 +49,8 @@
     const itemsList = document.querySelector('.plates');
     // check if localStorage exists, if not show nothing
     const items = JSON.parse(localStorage.getItem('items')) || [];
+    const toggle = document.querySelector('#toggle');
+    // const check = document.querySelector('#check');
 
     function addItem(e) {
       // all client side function
@@ -84,12 +88,44 @@
       populateList(items, itemsList);
     }
 
+    function toggleAll() {
+      let count = 0;
+
+      items.forEach(item => {
+        if (item.done) {
+          count++
+        }
+      })
+
+      if (count === 0) {
+        items.forEach(item => {
+          item.done = true;
+        })
+      } else {
+        items.forEach(item => {
+          item.done = !item.done
+        })
+      }
+
+      localStorage.setItem('items', JSON.stringify(items));
+      populateList(items, itemsList);
+    }
+
+    // function checkAll() {
+    //   items.forEach(item => {
+    //     item.done = true;
+    //   })
+    //   localStorage.setItem('items', JSON.stringify(items));
+    //   populateList(items, itemsList);
+    // }
+
     // event delegation - listen to click on the ul element
     itemsList.addEventListener('click', toggleDone);
 
     // to cover all 'submissions' with enter, clicking, etc.
     addItems.addEventListener('submit', addItem);
-
+    toggle.addEventListener('click', toggleAll);
+    // check.addEventListener('click', checkAll);
     populateList(items, itemsList);
   </script>
 
