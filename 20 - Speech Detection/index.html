@@ -32,7 +32,8 @@
 
       // if the person is done speaking, create a NEW element so we do not overwrite the first p
       if (e.results[0].isFinal) {
-        p = document.createElement('p')
+        p = document.createElement('p');
+        words.appendChild(p);
       }
       console.log(transcript)
     })
