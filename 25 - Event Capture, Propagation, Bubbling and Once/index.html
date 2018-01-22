@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Understanding JavaScript's Capture</title>
 </head>
+
 <body class="bod">
 
   <div class="one">
@@ -13,33 +15,59 @@
     </div>
   </div>
 
-<style>
-  html {
-    box-sizing: border-box;
-  }
-  *, *:before, *:after { box-sizing: inherit; }
+  <style>
+    html {
+      box-sizing: border-box;
+    }
 
-  div {
-    width:100%;
-    padding:100px;
-  }
+    *,
+    *:before,
+    *:after {
+      box-sizing: inherit;
+    }
 
-  .one {
-    background: thistle;
-  }
+    div {
+      width: 100%;
+      padding: 100px;
+    }
 
-  .two {
-    background:mistyrose;
-  }
+    .one {
+      background: thistle;
+    }
 
-  .three {
-    background:coral;
-  }
-</style>
+    .two {
+      background: mistyrose;
+    }
 
-<button></button>
-<script>
+    .three {
+      background: coral;
+    }
+  </style>
 
-</script>
+  <button>
+  </button>
+  <script>
+    const divs = document.querySelectorAll('div');
+
+    function logEvent(e) {
+      console.log(this.classList.value);
+      // e.stopPropagation(); //stop the bubbling
+    }
+
+    // clicks are captured top - down, events then bubble or propagate from down - top
+    // document.body.addEventListener('click', logEvent)
+    divs.forEach(div => div.addEventListener('click', logEvent
+      //, { capture: true // this changes the event cascade to run from top-down}
+      , { once: true } // unbinds the event listener after the event fires once
+    ))
+
+    // Use case: store order submissions
+    button.addEventListener('click', () => {
+      console.log('Click!');
+    }, {
+        once: true
+      })
+  </script>
 </body>
+
 </html>
